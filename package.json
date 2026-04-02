@@ -1,0 +1,53 @@
+{
+  "name": "node-modules-remover",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "A TypeScript CLI tool that recursively scans and removes node_modules directories with real-time progress, intelligent filtering, and comprehensive statistics",
+  "keywords": [
+    "node-modules",
+    "cleanup",
+    "disk-space",
+    "cli",
+    "typescript",
+    "filesystem",
+    "developer-tools",
+    "nodejs",
+    "disk-cleanup",
+    "storage-management"
+  ],
+  "author": "Or Assayag",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orassayag/node-modules-remover"
+  },
+  "bugs": {
+    "url": "https://github.com/orassayag/node-modules-remover/issues"
+  },
+  "homepage": "https://github.com/orassayag/node-modules-remover#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "build": "tsc",
+    "test": "NODE_OPTIONS='--no-warnings' vitest run",
+    "test:watch": "NODE_OPTIONS='--no-warnings' vitest",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "prettier": "prettier --check 'src/**/*.ts'",
+    "prettier:fix": "prettier --write 'src/**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.37.0",
+    "prettier": "^3.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.2",
+    "vitest": "^2.1.9"
+  }
+}
