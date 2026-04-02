@@ -56,8 +56,8 @@ graph TD
 
 ```mermaid
 graph LR
-    A[Scanner] -->|ScanResult[]| B[Statistics]
-    C[Remover] -->|DeleteResult[]| B
+    A[Scanner] -->|"ScanResult[]"| B[Statistics]
+    C[Remover] -->|"DeleteResult[]"| B
     B -->|Display| D[Console]
     E[PathUtils] -.->|Filter| A
     E -.->|Size| A
