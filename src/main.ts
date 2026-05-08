@@ -62,7 +62,11 @@ async function main() {
   console.log('\n✅ Done!\n');
 }
 
-main().catch((error) => {
-  console.error('Fatal error:', error);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== 'test') {
+  main().catch((error) => {
+    console.error('Fatal error:', error);
+    process.exit(1);
+  });
+}
+
+export { main };

@@ -91,5 +91,59 @@ describe('StatisticsCollector', () => {
       statisticsCollector.display(stats);
       expect(consoleLogSpy).toHaveBeenCalledWith('===FAILED: 1===');
     });
+
+    it('should clear screen when isProgress is true', () => {
+      const stdoutSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
+      const stats = {
+        totalDirectories: 1,
+        totalFiles: 10,
+        totalBytes: 100,
+        totalIgnored: 0,
+        deletedDirectories: 0,
+        failedDeletions: 0,
+      };
+      statisticsCollector.display(stats, true);
+      expect(stdoutSpy).toHaveBeenCalledWith('\x1B[2J\x1B[0f');
+      stdoutSpy.mockRestore();
+    });
+  });
+
+  describe('displayProgress', () => {
+    it('should display progress on a single line', () => {
+      const stdoutSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
+      const scanResults: ScanResult[] = [{ path: '/p1', files: 10, bytes: 100 }];
+      const deleteResults: DeleteResult[] = [{ success: true, path: '/p1' }];
+
+      statisticsCollector.displayProgress(scanResults, deleteResults, 0, 1, 2);
+
+      expect(stdoutSpy).toHaveBeenCalledWith(expect.stringContaining('\rProgress: 1/2 (50%)'));
+      expect(stdoutSpy).toHaveBeenCalledWith(expect.stringContaining('Deleted: 1'));
+      stdoutSpy.mockRestore();
+    });
+  });
+
+  describe('displayFinalProgress', () => {
+    it('should display final statistics with correct headers', () => {
+      const stdoutSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
+      const scanResults: ScanResult[] = [{ path: '/p1', files: 10, bytes: 100 }];
+      const deleteResults: DeleteResult[] = [{ success: true, path: '/p1' }];
+
+      statisticsCollector.displayFinalProgress(scanResults, deleteResults, 0);
+
+      expect(stdoutSpy).toHaveBeenCalledWith('\n\n');
+      expect(consoleLogSpy).toHaveBeenCalledWith('===DIRECTORIES: 1===');
+      expect(consoleLogSpy).toHaveBeenCalledWith('===FILES: 10===');
+      expect(consoleLogSpy).toHaveBeenCalledWith('===DELETED: 1===');
+      stdoutSpy.mockRestore();
+    });
+
+    it('should display failed deletions in final progress', () => {
+      const scanResults: ScanResult[] = [{ path: '/p1', files: 10, bytes: 100 }];
+      const deleteResults: DeleteResult[] = [{ success: false, path: '/p1', error: 'err' }];
+
+      statisticsCollector.displayFinalProgress(scanResults, deleteResults, 0);
+
+      expect(consoleLogSpy).toHaveBeenCalledWith('===FAILED: 1===');
+    });
   });
 });

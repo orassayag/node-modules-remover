@@ -63,5 +63,13 @@ describe('Remover', () => {
       expect(progressCallback).toHaveBeenCalledWith(1, 2, expect.any(Array));
       expect(progressCallback).toHaveBeenCalledWith(2, 2, expect.any(Array));
     });
+    it('should handle non-Error catch values', async () => {
+      const directories: ScanResult[] = [{ path: '/test', files: 0, bytes: 0 }];
+      vi.mocked(fs.rm).mockRejectedValueOnce('string error');
+
+      const results = await remover.delete(directories);
+      expect(results[0].success).toBe(false);
+      expect(results[0].error).toBe('string error');
+    });
   });
 });
