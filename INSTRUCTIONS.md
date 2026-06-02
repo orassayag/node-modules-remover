@@ -60,14 +60,14 @@ Console Output
 
 ### Module Responsibilities
 
-| Module | Responsibility | Key Functions |
-|--------|---------------|---------------|
-| `main.ts` | Entry point and orchestration | Coordinates scanning, deletion, and reporting |
-| `scanner.ts` | Directory traversal | Recursively finds `node_modules` directories |
-| `remover.ts` | File deletion | Safely removes directories |
-| `statistics.ts` | Data aggregation | Collects and displays statistics |
-| `pathUtils.ts` | Path operations | Filtering, size calculation |
-| `formatUtils.ts` | Data formatting | Number and byte formatting |
+| Module           | Responsibility                | Key Functions                                 |
+| ---------------- | ----------------------------- | --------------------------------------------- |
+| `main.ts`        | Entry point and orchestration | Coordinates scanning, deletion, and reporting |
+| `scanner.ts`     | Directory traversal           | Recursively finds `node_modules` directories  |
+| `remover.ts`     | File deletion                 | Safely removes directories                    |
+| `statistics.ts`  | Data aggregation              | Collects and displays statistics              |
+| `pathUtils.ts`   | Path operations               | Filtering, size calculation                   |
+| `formatUtils.ts` | Data formatting               | Number and byte formatting                    |
 
 ### Data Flow
 
@@ -122,11 +122,13 @@ pnpm lint
 #### VS Code (Recommended)
 
 Install recommended extensions:
+
 - ESLint
 - Prettier
 - TypeScript and JavaScript Language Features
 
 Settings (`.vscode/settings.json`):
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -213,6 +215,7 @@ async scan(
 ```
 
 **Algorithm**:
+
 1. Start at `rootPath`
 2. Read directory entries
 3. For each entry:
@@ -222,6 +225,7 @@ async scan(
 4. Call progress callback every 500ms
 
 **Performance Considerations**:
+
 - Uses `fs.promises` for async I/O
 - Parallel size calculations
 - Early exit on ignored paths
@@ -240,6 +244,7 @@ async delete(
 ```
 
 **Safety Features**:
+
 - Only deletes if `dryRun` is false
 - Handles permission errors
 - Continues on individual failures
@@ -268,6 +273,7 @@ displayProgress(
 ```
 
 **Display Format**:
+
 ```
 Progress: 35/58 (60%) | Deleted: 35 | Size: 4.12GB | Files: 48,234,123
 ```
@@ -287,6 +293,7 @@ getDirectorySize(path: string): Promise<DirectorySizeResult>
 ```
 
 **Ignore Logic**:
+
 - Case-insensitive substring matching
 - Checks full absolute path
 - Short-circuits on first match
@@ -348,10 +355,10 @@ describe('ModuleName', () => {
     it('should handle normal case', () => {
       // Arrange
       const input = 'test';
-      
+
       // Act
       const result = functionName(input);
-      
+
       // Assert
       expect(result).toBe('expected');
     });
@@ -416,11 +423,13 @@ node dist/main.js
 ### Release Process
 
 1. **Version Bump**
+
    ```bash
    npm version patch  # or minor, major
    ```
 
 2. **Build and Test**
+
    ```bash
    pnpm build
    pnpm test
@@ -428,6 +437,7 @@ node dist/main.js
    ```
 
 3. **Commit and Tag**
+
    ```bash
    git add .
    git commit -m "chore: release v1.x.x"
@@ -449,6 +459,7 @@ node dist/main.js
 **Problem**: Type errors after updating dependencies
 
 **Solution**:
+
 ```bash
 rm -rf node_modules
 pnpm install
@@ -460,6 +471,7 @@ pnpm build
 **Problem**: Tests fail after refactoring
 
 **Solution**:
+
 1. Check if mocks need updating
 2. Verify test data is still valid
 3. Run tests individually to isolate issues
@@ -469,6 +481,7 @@ pnpm build
 **Problem**: Scanning is slow
 
 **Solution**:
+
 1. Check if ignore patterns are too broad
 2. Verify parallel processing is working
 3. Profile with Node.js profiler
@@ -529,6 +542,7 @@ pnpm start > output.log 2>&1
 ## Questions?
 
 If you have questions not covered in this document:
+
 1. Check existing issues on GitHub
 2. Open a new issue with the `question` label
 3. Reach out to maintainers

@@ -4,10 +4,7 @@ import { ScanResult, DeleteResult } from '../types';
 export type ProgressCallback = (completed: number, total: number, results: DeleteResult[]) => void;
 
 export class Remover {
-  async delete(
-    directories: ScanResult[],
-    onProgress?: ProgressCallback
-  ): Promise<DeleteResult[]> {
+  async delete(directories: ScanResult[], onProgress?: ProgressCallback): Promise<DeleteResult[]> {
     const results: DeleteResult[] = [];
     const total = directories.length;
     for (let i = 0; i < directories.length; i++) {

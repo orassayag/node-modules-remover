@@ -43,13 +43,7 @@ async function main() {
     deleteResults = await remover.delete(directories, (completed, total, results) => {
       const now = Date.now();
       if (now - lastUpdateTime >= 2000 || completed === total) {
-        statisticsCollector.displayProgress(
-          directories,
-          results,
-          ignoredCount,
-          completed,
-          total
-        );
+        statisticsCollector.displayProgress(directories, results, ignoredCount, completed, total);
         lastUpdateTime = now;
       }
     });

@@ -56,22 +56,26 @@ Unsure where to begin? Look for issues labeled:
 ## Development Setup
 
 1. **Fork and clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/node-modules-remover.git
    cd node-modules-remover
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Build the project**
+
    ```bash
    pnpm build
    ```
 
 4. **Run tests**
+
    ```bash
    pnpm test
    ```
@@ -122,7 +126,9 @@ export function shouldIgnorePath(fullPath: string, ignorePatterns: string[]): bo
 // Avoid
 export function shouldIgnorePath(fullPath: any, ignorePatterns: any) {
   if (!ignorePatterns.length) return false;
-  return ignorePatterns.some((pattern: any) => fullPath.toLowerCase().includes(pattern.toLowerCase()));
+  return ignorePatterns.some((pattern: any) =>
+    fullPath.toLowerCase().includes(pattern.toLowerCase())
+  );
 }
 ```
 
@@ -154,10 +160,10 @@ describe('Scanner', () => {
     it('should find node_modules directories', async () => {
       // Arrange
       const mockPath = '/test/path';
-      
+
       // Act
       const result = await scanner.scan(mockPath, []);
-      
+
       // Assert
       expect(result.directories).toBeDefined();
     });
@@ -245,20 +251,24 @@ Fixes #456
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 - [ ] Tests pass locally
 - [ ] Added/updated tests
 - [ ] Tested manually
 
 ## Checklist
+
 - [ ] Code follows project style guidelines
 - [ ] Self-review completed
 - [ ] Comments added for complex logic
@@ -307,6 +317,7 @@ Feel free to open an issue with the `question` label if you have any questions a
 ## Recognition
 
 Contributors will be recognized in:
+
 - Release notes
 - README.md (if significant contribution)
 - GitHub contributors page
