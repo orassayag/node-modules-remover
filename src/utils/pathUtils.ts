@@ -2,15 +2,22 @@ import { readdir, stat } from 'fs/promises';
 import { join } from 'path';
 import { DirectorySizeResult } from '../types';
 
-export function shouldIgnorePath(fullPath: string, ignorePatterns: string[]): boolean {
+export function shouldIgnorePath(
+  fullPath: string,
+  ignorePatterns: string[]
+): boolean {
   if (ignorePatterns.length === 0) {
     return false;
   }
   const lowerPath = fullPath.toLowerCase();
-  return ignorePatterns.some((pattern) => lowerPath.includes(pattern.toLowerCase()));
+  return ignorePatterns.some((pattern) =>
+    lowerPath.includes(pattern.toLowerCase())
+  );
 }
 
-export async function getDirectorySize(path: string): Promise<DirectorySizeResult> {
+export async function getDirectorySize(
+  path: string
+): Promise<DirectorySizeResult> {
   let files = 0;
   let bytes = 0;
   try {

@@ -1,7 +1,5 @@
 import { settings } from './settings';
-import { Scanner } from './core/scanner';
-import { Remover } from './core/remover';
-import { StatisticsCollector } from './core/statistics';
+import { Scanner, Remover, StatisticsCollector } from './core';
 import { DeleteResult } from './types';
 
 async function main() {
@@ -20,7 +18,8 @@ async function main() {
     settings.scanPath,
     settings.ignorePaths,
     (currentPath: string, foundCount: number) => {
-      const truncatedPath = currentPath.length > 80 ? '...' + currentPath.slice(-77) : currentPath;
+      const truncatedPath =
+        currentPath.length > 80 ? '...' + currentPath.slice(-77) : currentPath;
       process.stdout.write(
         `\rScanning: ${foundCount} found | Current: ${truncatedPath}${' '.repeat(20)}`
       );
@@ -40,18 +39,33 @@ async function main() {
     const statisticsCollector = new StatisticsCollector();
     let lastUpdateTime = Date.now();
     const remover = new Remover();
-    deleteResults = await remover.delete(directories, (completed, total, results) => {
-      const now = Date.now();
-      if (now - lastUpdateTime >= 2000 || completed === total) {
-        statisticsCollector.displayProgress(directories, results, ignoredCount, completed, total);
-        lastUpdateTime = now;
+    deleteResults = await remover.delete(
+      directories,
+      (completed, total, results) => {
+        const now = Date.now();
+        if (now - lastUpdateTime >= 2000 || completed === total) {
+          statisticsCollector.displayProgress(
+            directories,
+            results,
+            ignoredCount,
+            completed,
+            total
+          );
+          lastUpdateTime = now;
+        }
       }
-    });
+    );
     const successCount = deleteResults.filter((r) => r.success).length;
-    console.log(`\n\n✅ Deleted ${successCount}/${directories.length} directories successfully\n`);
+    console.log(
+      `\n\n✅ Deleted ${successCount}/${directories.length} directories successfully\n`
+    );
   }
   const statisticsCollector = new StatisticsCollector();
-  const stats = statisticsCollector.aggregate(directories, deleteResults, ignoredCount);
+  const stats = statisticsCollector.aggregate(
+    directories,
+    deleteResults,
+    ignoredCount
+  );
   statisticsCollector.display(stats);
   console.log('\n✅ Done!\n');
 }
@@ -64,3 +78,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 export { main };
+export { settings } from './settings';
+export * from './core';
+export * from './types';
+export * from './utils';

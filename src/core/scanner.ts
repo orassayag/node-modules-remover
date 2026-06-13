@@ -1,9 +1,12 @@
 import { readdir } from 'fs/promises';
 import { join } from 'path';
 import { ScanResult } from '../types';
-import { shouldIgnorePath, getDirectorySize } from '../utils/pathUtils';
+import { shouldIgnorePath, getDirectorySize } from '../utils';
 
-export type ScanProgressCallback = (currentPath: string, foundCount: number) => void;
+export type ScanProgressCallback = (
+  currentPath: string,
+  foundCount: number
+) => void;
 
 export class Scanner {
   private foundDirectories: ScanResult[] = [];
@@ -40,7 +43,10 @@ export class Scanner {
     }
   }
 
-  private async scanDirectory(currentPath: string, ignorePaths: string[]): Promise<void> {
+  private async scanDirectory(
+    currentPath: string,
+    ignorePaths: string[]
+  ): Promise<void> {
     if (shouldIgnorePath(currentPath, ignorePaths)) {
       this.ignoredCount++;
       return;
@@ -69,7 +75,8 @@ export class Scanner {
         }
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       if (!errorMessage.includes('EACCES') && !errorMessage.includes('EPERM')) {
         console.error(`\nError scanning directory ${currentPath}:`, error);
       }

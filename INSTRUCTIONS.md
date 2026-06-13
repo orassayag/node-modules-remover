@@ -95,11 +95,21 @@ Console Output
 
 ### Prerequisites
 
+#### System Requirements
+
+- **Node.js**: Version 18 or higher
+- **Package Manager**: pnpm (recommended) or npm
+- **Operating System**: Windows, macOS, or Linux
+- **Memory**: 2GB RAM minimum
+- **Disk Space**: 100MB for application and dependencies
+
 - **Node.js** v18.0.0 or higher
 - **pnpm** v8.0.0 or higher
 - **Git** for version control
 
 ### Initial Setup
+
+#### Install Dependencies
 
 ```bash
 # 1. Clone the repository
@@ -116,6 +126,29 @@ pnpm build
 pnpm test
 pnpm lint
 ```
+
+#### Setup and Usage Instructions
+
+1. **Configure Settings**
+   - Edit `src/settings.ts`
+   - Set your `scanPath`
+   - Configure `ignorePaths` for important projects
+   - Keep `dryRun: true` for safety
+
+2. **Dry Run First**
+
+   ```bash
+   pnpm start
+   ```
+
+   Review what would be deleted.
+
+3. **Actual Deletion**
+   - Set `dryRun: false` in `src/settings.ts`
+   - Run again:
+   ```bash
+   pnpm start
+   ```
 
 ### IDE Configuration
 
@@ -168,6 +201,83 @@ git commit -m "feat: your feature description"
 # 7. Push and create PR
 git push origin feature/your-feature-name
 ```
+
+### Available Commands
+
+#### Development Commands
+
+**Linting and Formatting:**
+
+```bash
+# Check code style and quality
+pnpm lint
+
+# Fix linting issues
+pnpm lint:fix
+
+# Check code formatting
+pnpm prettier
+
+# Fix formatting issues
+pnpm prettier:fix
+```
+
+**Building:**
+
+```bash
+# Compile TypeScript to JavaScript
+pnpm build
+```
+
+**Testing:**
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode (during development)
+pnpm test:watch
+```
+
+#### Running Scripts
+
+**Main Application:**
+
+```bash
+# Run the tool
+pnpm start
+```
+
+### Extending the Application
+
+#### Adding New Features
+
+1. **Update Types**
+   - Add new types to `src/types/index.ts`
+
+2. **Implement Logic**
+   - Add new functions to appropriate modules (core/utils)
+
+3. **Write Tests**
+   - Add tests to `__tests__` directories
+
+4. **Update Documentation**
+   - Update README and INSTRUCTIONS as needed
+
+#### Example: Adding a New Option
+
+1. Add the setting to `src/settings.ts`
+2. Update the types in `src/types/index.ts`
+3. Implement the logic in the relevant core module
+4. Add tests
+5. Update documentation
+
+### External Resources
+
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Vitest Documentation](https://vitest.dev/)
+- [pnpm Documentation](https://pnpm.io/)
+- [Node.js File System API](https://nodejs.org/api/fs.html)
 
 ### Adding a New Feature
 
@@ -548,3 +658,16 @@ If you have questions not covered in this document:
 3. Reach out to maintainers
 
 Happy coding! 🚀
+
+## Author
+
+- **Or Assayag** - _Initial work_ - [orassayag](https://github.com/orassayag)
+- Or Assayag <orassayag@gmail.com>
+- GitHub: https://github.com/orassayag
+- StackOverflow: https://stackoverflow.com/users/4442606/or-assayag?tab=profile
+- LinkedIn: https://linkedin.com/in/orassayag
+
+---
+
+**Last Updated**: June 2026
+**Version**: 1.0.0

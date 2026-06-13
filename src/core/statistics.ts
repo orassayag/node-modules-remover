@@ -1,5 +1,5 @@
 import { Statistics, ScanResult, DeleteResult } from '../types';
-import { formatBytes, formatNumber } from '../utils/formatUtils';
+import { formatBytes, formatNumber } from '../utils';
 
 export class StatisticsCollector {
   aggregate(
@@ -8,10 +8,20 @@ export class StatisticsCollector {
     ignoredCount: number
   ): Statistics {
     const totalDirectories = scanResults.length;
-    const totalFiles = scanResults.reduce((sum, result) => sum + result.files, 0);
-    const totalBytes = scanResults.reduce((sum, result) => sum + result.bytes, 0);
-    const deletedDirectories = deleteResults.filter((result) => result.success).length;
-    const failedDeletions = deleteResults.filter((result) => !result.success).length;
+    const totalFiles = scanResults.reduce(
+      (sum, result) => sum + result.files,
+      0
+    );
+    const totalBytes = scanResults.reduce(
+      (sum, result) => sum + result.bytes,
+      0
+    );
+    const deletedDirectories = deleteResults.filter(
+      (result) => result.success
+    ).length;
+    const failedDeletions = deleteResults.filter(
+      (result) => !result.success
+    ).length;
     return {
       totalDirectories,
       totalFiles,

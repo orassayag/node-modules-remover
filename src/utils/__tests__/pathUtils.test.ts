@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { shouldIgnorePath, getDirectorySize } from '../pathUtils';
+import { shouldIgnorePath, getDirectorySize } from '..';
 import * as fsPromises from 'fs/promises';
 import { Dirent } from 'fs';
 
@@ -23,7 +23,9 @@ describe('pathUtils', () => {
 
     it('should match pattern anywhere in path', () => {
       const ignorePaths = ['test'];
-      expect(shouldIgnorePath('/home/user/test/project', ignorePaths)).toBe(true);
+      expect(shouldIgnorePath('/home/user/test/project', ignorePaths)).toBe(
+        true
+      );
       expect(shouldIgnorePath('/home/testing/project', ignorePaths)).toBe(true);
     });
 
@@ -47,9 +49,10 @@ describe('pathUtils', () => {
         { name: 'file2.txt', isFile: () => true, isDirectory: () => false },
       ] as unknown as Dirent[];
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       vi.mocked(fsPromises.readdir).mockResolvedValueOnce(mockEntries as any);
-      vi.mocked(fsPromises.stat).mockResolvedValue({ size: 100 } as unknown as import('fs').Stats);
+      vi.mocked(fsPromises.stat).mockResolvedValue({
+        size: 100,
+      } as unknown as import('fs').Stats);
 
       const result = await getDirectorySize('/mock/path');
       expect(result).toEqual({ files: 2, bytes: 200 });
@@ -65,20 +68,25 @@ describe('pathUtils', () => {
         { name: 'file2.txt', isFile: () => true, isDirectory: () => false },
       ] as unknown as Dirent[];
 
-      /* eslint-disable @typescript-eslint/no-explicit-any */
       vi.mocked(fsPromises.readdir)
         .mockResolvedValueOnce(rootEntries as any)
         .mockResolvedValueOnce(subdirEntries as any);
-      /* eslint-enable @typescript-eslint/no-explicit-any */
-      vi.mocked(fsPromises.stat).mockResolvedValue({ size: 100 } as unknown as import('fs').Stats);
+
+      vi.mocked(fsPromises.stat).mockResolvedValue({
+        size: 100,
+      } as unknown as import('fs').Stats);
 
       const result = await getDirectorySize('/mock/path');
       expect(result).toEqual({ files: 2, bytes: 200 });
     });
 
     it('should handle errors gracefully', async () => {
-      vi.mocked(fsPromises.readdir).mockRejectedValueOnce(new Error('Read error'));
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.mocked(fsPromises.readdir).mockRejectedValueOnce(
+        new Error('Read error')
+      );
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
       const result = await getDirectorySize('/invalid/path');
       expect(result).toEqual({ files: 0, bytes: 0 });
       expect(consoleSpy).toHaveBeenCalled();
@@ -90,10 +98,11 @@ describe('pathUtils', () => {
         { name: 'file1.txt', isFile: () => true, isDirectory: () => false },
       ] as unknown as Dirent[];
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       vi.mocked(fsPromises.readdir).mockResolvedValueOnce(mockEntries as any);
       vi.mocked(fsPromises.stat).mockRejectedValueOnce(new Error('Stat error'));
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       const result = await getDirectorySize('/mock/path');
       expect(result).toEqual({ files: 0, bytes: 0 });

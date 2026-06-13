@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Scanner } from '../scanner';
+import { Scanner } from '..';
 import * as fsPromises from 'fs/promises';
-import * as pathUtils from '../../utils/pathUtils';
+import * as pathUtils from '../../utils';
 import { Dirent } from 'fs';
 
 vi.mock('fs/promises');
-vi.mock('../../utils/pathUtils');
+vi.mock('../../utils');
 
 describe('Scanner', () => {
   let scanner: Scanner;
@@ -27,14 +27,15 @@ describe('Scanner', () => {
         { name: 'index.ts', isDirectory: () => false, isFile: () => true },
       ] as unknown as Dirent[];
 
-      /* eslint-disable @typescript-eslint/no-explicit-any */
       vi.mocked(fsPromises.readdir)
         .mockResolvedValueOnce(mockEntries as any)
         .mockResolvedValueOnce(srcEntries as any);
-      /* eslint-enable @typescript-eslint/no-explicit-any */
 
       vi.mocked(pathUtils.shouldIgnorePath).mockReturnValue(false);
-      vi.mocked(pathUtils.getDirectorySize).mockResolvedValue({ files: 10, bytes: 1000 });
+      vi.mocked(pathUtils.getDirectorySize).mockResolvedValue({
+        files: 10,
+        bytes: 1000,
+      });
 
       const result = await scanner.scan(rootPath, []);
 
@@ -57,8 +58,12 @@ describe('Scanner', () => {
     it('should handle errors during scanning', async () => {
       const rootPath = '/project';
       vi.mocked(pathUtils.shouldIgnorePath).mockReturnValue(false);
-      vi.mocked(fsPromises.readdir).mockRejectedValue(new Error('Unexpected error'));
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.mocked(fsPromises.readdir).mockRejectedValue(
+        new Error('Unexpected error')
+      );
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       const result = await scanner.scan(rootPath, []);
 
@@ -72,8 +77,12 @@ describe('Scanner', () => {
       vi.mocked(pathUtils.shouldIgnorePath).mockReturnValue(false);
 
       // Test EACCES
-      vi.mocked(fsPromises.readdir).mockRejectedValueOnce(new Error('EACCES: permission denied'));
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.mocked(fsPromises.readdir).mockRejectedValueOnce(
+        new Error('EACCES: permission denied')
+      );
+      const consoleSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
       await scanner.scan(rootPath, []);
       expect(consoleSpy).not.toHaveBeenCalled();
 
@@ -93,10 +102,12 @@ describe('Scanner', () => {
         { name: 'node_modules', isDirectory: () => true, isFile: () => false },
       ] as unknown as Dirent[];
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       vi.mocked(fsPromises.readdir).mockResolvedValueOnce(mockEntries as any);
       vi.mocked(pathUtils.shouldIgnorePath).mockReturnValue(false);
-      vi.mocked(pathUtils.getDirectorySize).mockResolvedValue({ files: 1, bytes: 1 });
+      vi.mocked(pathUtils.getDirectorySize).mockResolvedValue({
+        files: 1,
+        bytes: 1,
+      });
 
       const onProgress = vi.fn();
       // Mock Date.now to control progress updates

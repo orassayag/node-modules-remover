@@ -1,9 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { main } from '../main';
-import { Scanner } from '../core/scanner';
-import { Remover } from '../core/remover';
-import { StatisticsCollector } from '../core/statistics';
-import { settings } from '../settings';
+import { main, Scanner, Remover, StatisticsCollector, settings } from '..';
 
 vi.mock('../core/scanner', () => ({
   Scanner: class {

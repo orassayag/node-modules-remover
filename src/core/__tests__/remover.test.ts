@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Remover } from '../remover';
-import { ScanResult } from '../../types/index';
+import { Remover } from '..';
+import { ScanResult } from '../../types';
 import * as fs from 'fs/promises';
 
 vi.mock('fs/promises');
@@ -27,7 +27,10 @@ describe('Remover', () => {
       expect(results[1].success).toBe(true);
       expect(results[1].path).toBe('/path2/node_modules');
       expect(fs.rm).toHaveBeenCalledTimes(2);
-      expect(fs.rm).toHaveBeenCalledWith('/path1/node_modules', { recursive: true, force: true });
+      expect(fs.rm).toHaveBeenCalledWith('/path1/node_modules', {
+        recursive: true,
+        force: true,
+      });
     });
 
     it('should handle deletion failures gracefully', async () => {

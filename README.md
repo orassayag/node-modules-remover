@@ -1,8 +1,8 @@
 # Node Modules Remover
 
-A powerful TypeScript CLI tool that recursively scans directories to find and delete node_modules folders, with intelligent path filtering, real-time progress updates, and comprehensive statistics reporting.
+Node Modules Remover is a powerful TypeScript CLI utility designed to recursively scan directories and safely delete node_modules folders to reclaim disk space.
 
-Built in March 2026. This CLI utility traverses directory trees, identifies node_modules folders, removes them efficiently, and provides detailed logs, progress feedback, and summary statistics for safe, automated cleanup.
+Built in March 2026, it features intelligent path filtering, dry-run protection, live progress tracking, and detailed statistics reporting. The tool efficiently traverses large directory trees, calculates folder sizes, supports ignore patterns for critical projects, and provides real-time scanning and deletion updates for safe, automated dependency cleanup across development environments.
 
 ## 🎯 Why Node Modules Remover?
 
@@ -24,6 +24,58 @@ Are you tired of `node_modules` directories consuming gigabytes of disk space ac
 - ⏱️ **Live Delete Progress**: Real-time progress display during deletion (updates every 2 seconds)
 - ⚡ **Fast & Efficient**: Parallel processing for optimal performance
 - 🔒 **Type-Safe**: Written in TypeScript with full type safety
+
+### Core Capabilities
+
+- **Recursive Directory Scanning**: Finds `node_modules` folders at any depth
+- **Smart Path Filtering**: Ignore specific directories using pattern matching
+- **Dry-Run Preview**: Safely preview deletions without making changes
+- **Live Progress Tracking**: Real-time updates during scanning and deletion
+- **Comprehensive Statistics**: Detailed reports on space reclaimed
+
+### Technical Excellence
+
+- **Type Safety**: Full TypeScript with strict type checking
+- **Async/Await**: Non-blocking I/O with `fs.promises`
+- **Parallel Processing**: Efficient size calculations
+- **Error Handling**: Graceful handling of file system errors
+- **Comprehensive Testing**: Unit and integration tests with Vitest
+
+### Developer Experience
+
+- **Clear Configuration**: Simple settings in `src/settings.ts`
+- **Fast Builds**: Quick TypeScript compilation
+- **Easy Testing**: Watch mode for development
+- **Clean Codebase**: Well-organized modules with clear responsibilities
+- **Linting & Formatting**: ESLint and Prettier configured
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18 or higher
+- pnpm package manager (recommended) or npm
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd node-modules-remover
+```
+
+2. Install dependencies:
+
+```bash
+pnpm install
+```
+
+3. Build the project:
+
+```bash
+pnpm build
+```
 
 ## 📊 Architecture
 
@@ -270,7 +322,7 @@ pnpm test
 
 All tests are located in `__tests__` directories next to the source files they test.
 
-### Project Structure
+### Directory Structure
 
 ```
 node-modules-remover/
@@ -292,6 +344,32 @@ node-modules-remover/
 ├── tsconfig.json
 └── README.md
 ```
+
+### Design Patterns
+
+- **Module Pattern**: Clear separation of concerns (scanner, remover, statistics)
+- **Strategy Pattern**: Different processing strategies for scan vs delete
+- **Observer Pattern**: Progress callbacks for real-time updates
+- **Repository Pattern**: Abstraction of file system operations
+
+### Architecture Principles
+
+This project follows clean architecture principles:
+
+1. **Separation of Concerns**: Each module has a single, well-defined responsibility
+2. **Type Safety**: Strict TypeScript with comprehensive type definitions
+3. **Error Handling**: Graceful error handling with clear user feedback
+4. **Testability**: Pure functions and modular design for easy testing
+5. **Performance**: Async/await with parallel processing for optimal speed
+6. **Safety**: Dry-run mode enabled by default to prevent accidental deletions
+
+### Best Practices
+
+1. **Always use dry-run first**: Preview deletions before making changes
+2. **Configure ignore patterns**: Protect important projects from accidental deletion
+3. **Review statistics**: Check the space you're about to reclaim
+4. **Backup important data**: Before running large deletions, ensure you have backups
+5. **Keep dependencies updated**: Regularly update project dependencies for security and performance
 
 ## ⚙️ How It Works
 
@@ -425,3 +503,18 @@ Give a ⭐️ if this project helped you reclaim your disk space!
 ## License
 
 This application has an MIT license - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+- **Or Assayag** - _Initial work_ - [orassayag](https://github.com/orassayag)
+- Or Assayag <orassayag@gmail.com>
+- GitHub: https://github.com/orassayag
+- StackOverflow: https://stackoverflow.com/users/4442606/or-assayag?tab=profile
+- LinkedIn: https://linkedin.com/in/orassayag
+
+## Acknowledgments
+
+- Built for educational and research purposes
+- Respects robots.txt and implements rate limiting
+- Uses user-agent rotation to avoid detection
+- Implements polite crawling practices

@@ -22,7 +22,8 @@
       "@types/*": ["./src/types/*"],
       "@core/*": ["./src/core/*"],
       "@utils/*": ["./src/utils/*"]
-    }
+    },
+    "types": ["node", "vitest"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
