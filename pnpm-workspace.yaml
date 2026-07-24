@@ -11,6 +11,6 @@ minimumReleaseAgeExclude:
   - '@typescript-eslint/typescript-estree@8.60.1 || 8.65.0'
   - '@typescript-eslint/utils@8.60.1 || 8.65.0'
   - '@typescript-eslint/visitor-keys@8.60.1 || 8.65.0'
-  - eslint@10.5.0
+  - eslint@10.5.0 || 10.8.0
   - typescript-eslint@8.65.0
   - prettier@3.9.6
