@@ -14,3 +14,4 @@ minimumReleaseAgeExclude:
   - eslint@10.5.0 || 10.8.0
   - typescript-eslint@8.65.0
   - prettier@3.9.6
+  - '@types/node@26.1.2'
