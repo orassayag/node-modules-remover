@@ -78,12 +78,12 @@
     "test:watch": "cross-env NODE_OPTIONS='--no-warnings' vitest"
   },
   "dependencies": {
-    "dotenv": "^18.0.1"
+    "dotenv": "^18.0.2"
   },
   "devDependencies": {
     "@types/node": "^26.6.2",
-    "@typescript-eslint/eslint-plugin": "^8.70.0",
-    "@typescript-eslint/parser": "^8.70.0",
+    "@typescript-eslint/eslint-plugin": "^8.70.1",
+    "@typescript-eslint/parser": "^8.70.1",
     "@vitest/coverage-istanbul": "^5.0.1",
     "cross-env": "^10.1.0",
     "eslint": "^10.11.0",
@@ -91,7 +91,7 @@
     "prettier": "^3.9.8",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "typescript-eslint": "^8.70.0",
+    "typescript-eslint": "^8.70.1",
     "vitest": "^5.0.1"
   },
   "engines": {
