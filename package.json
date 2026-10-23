@@ -78,7 +78,7 @@
     "test:watch": "cross-env NODE_OPTIONS='--no-warnings' vitest"
   },
   "dependencies": {
-    "dotenv": "^18.0.8"
+    "dotenv": "^18.0.9"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
